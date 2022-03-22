@@ -100,6 +100,23 @@ class RouteMeander(QRoute):
         # Make points into elements
         self.make_elements(self.get_points())
 
+        from datetime import datetime
+        import re
+        now=datetime.now()
+        ptsfilename = "C:/Users/vethaak/OneDrive - Chalmers/Documents/Designs and simulations/2022-01-10 Qiskit capacitance test/GDS from Qiskit/ResonatorCoords"+now.strftime("%Y%m%d%H%M")+".txt"
+        printcomma = True
+        try:
+            ptsfile = open(ptsfilename,"r")
+        except:
+            printcomma = False
+        else:
+            ptsfile.close()
+        ptsfile = open(ptsfilename,"a")
+        if printcomma:
+            ptsfile.write(",\n")
+        ptsfile.write(re.sub('(?<=\d)\s+(?=[\d-])',',',str(self.get_points())).replace("[","(").replace("]",")").replace("))",")]").replace("((","[(").replace("\n",","))
+        ptsfile.close()
+
     def connect_meandered(self, start_pt: QRoutePoint,
                           end_pt: QRoutePoint) -> np.ndarray:
         """Meanders using a fixed length and fixed spacing.

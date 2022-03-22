@@ -90,7 +90,7 @@ class QRoute(QComponent):
             jogs[3] = ["L", '500um']
             jogs[4] = ["R", '200um']
             jogs_other = ....
-            
+
             options = {'lead': {
                 'start_straight': '0.3mm',
                 'end_straight': '0.3mm',
@@ -131,6 +131,26 @@ class QRoute(QComponent):
     """Default options"""
 
     TOOLTIP = """QRoute"""
+
+    def log_route(self):
+        from datetime import datetime
+        # Use the current time to the minute to label the file
+        now=datetime.now()
+        ptsfilename = "C:/Users/vethaak/OneDrive - Chalmers/Documents/Designs and simulations/2022-01-10 Qiskit capacitance test/GDS from Qiskit/"+now.strftime("%Y%m%d%H%M")+"FeedlineCoords.txt"
+        # Add a comma and newline before the line if the file has already been created by a previous operation
+        printcomma = True
+        try:
+            ptsfile = open(ptsfilename,"r")
+        except:
+            printcomma = False
+        else:
+            ptsfile.close()
+        ptsfile = open(ptsfilename,"a")
+        if printcomma:
+            ptsfile.write(",\n")
+        # Write the coordinates of the CPW to the file
+        ptsfile.write(str(self.get_points().tolist()))
+        ptsfile.close()
 
     def __init__(self,
                  design,
