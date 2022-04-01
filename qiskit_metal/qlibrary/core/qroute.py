@@ -132,6 +132,10 @@ class QRoute(QComponent):
 
     TOOLTIP = """QRoute"""
 
+    # ----------------------------------------------------------------------------------------------------------#
+    # <QTL>
+    # Stores the points that a tline is routed between in a text file, in the same folder as the gds file.
+    # If the file for that type of line (feedline, resonator, xyline) already exists, points are appended on a new line.
     def log_route(self):
         ptsfilename = self.design.gdspath+self.design.chipname+"_"+self.p.route_type+".txt"
         # Add a comma and newline before the line if the file has already been created by a previous operation
@@ -148,6 +152,8 @@ class QRoute(QComponent):
         # Write the coordinates of the CPW to the file
         ptsfile.write(str(self.get_points().tolist()))
         ptsfile.close()
+    # </QTL>
+    # ----------------------------------------------------------------------------------------------------------#
 
     def __init__(self,
                  design,
