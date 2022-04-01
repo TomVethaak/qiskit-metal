@@ -296,7 +296,8 @@ class RouteFramed(QRoute):
 
         # Make points into elements
         self.make_elements(self.get_points())
-
+        self.log_route()        # QTL: Write the points of the route to a .txt file
+        
     def connect_frame(self, segments: int, constaxis=0, constval=0) -> list:
         """Generate the list of 2D coordinates comprising a CPW between
         startpin and endpin.

@@ -132,11 +132,12 @@ class QRoute(QComponent):
 
     TOOLTIP = """QRoute"""
 
+    # ----------------------------------------------------------------------------------------------------------#
+    # <QTL>
+    # Stores the points that a tline is routed between in a text file, in the same folder as the gds file.
+    # If the file for that type of line (feedline, resonator, xyline) already exists, points are appended on a new line.
     def log_route(self):
-        from datetime import datetime
-        # Use the current time to the minute to label the file
-        now=datetime.now()
-        ptsfilename = "C:/Users/vethaak/OneDrive - Chalmers/Documents/Designs and simulations/2022-01-10 Qiskit capacitance test/GDS from Qiskit/"+now.strftime("%Y%m%d%H%M")+"FeedlineCoords.txt"
+        ptsfilename = self.design.gdspath+self.design.chipname+"_"+self.p.route_type+".txt"
         # Add a comma and newline before the line if the file has already been created by a previous operation
         printcomma = True
         try:
@@ -151,6 +152,8 @@ class QRoute(QComponent):
         # Write the coordinates of the CPW to the file
         ptsfile.write(str(self.get_points().tolist()))
         ptsfile.close()
+    # </QTL>
+    # ----------------------------------------------------------------------------------------------------------#
 
     def __init__(self,
                  design,

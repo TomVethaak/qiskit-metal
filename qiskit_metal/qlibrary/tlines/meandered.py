@@ -99,6 +99,7 @@ class RouteMeander(QRoute):
 
         # Make points into elements
         self.make_elements(self.get_points())
+        self.log_route()        # QTL: Write the points of the route to a .txt file
 
         from datetime import datetime
         import re
